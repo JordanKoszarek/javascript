@@ -5,3 +5,9 @@ node_modules
 # Only apps should have lockfiles
 yarn.lock
 package-lock.json
+.idea/inspectionProfiles/Project_Default.xml
+.idea/javascript.iml
+.idea/jsLinters/jshint.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
