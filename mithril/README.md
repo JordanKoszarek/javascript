@@ -21,7 +21,7 @@
   **[⬆ back to top](#table-of-contents)**
   [2.2](models) Use classes.
   > Why? It is easier to refactor the model to support multiple instances if the model is already a class.
-```
+```javascript
     // bad
     const model = {
         init() {
