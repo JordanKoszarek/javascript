@@ -1,4 +1,4 @@
-# Airbnb React/JSX Style Guide
+# Unearth Mithril.js guide
 
 *A mostly reasonable approach to Mithril and JSX*
 
