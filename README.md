@@ -6,7 +6,7 @@
 
 Other Style Guides
 
-  - [TODO] Mithril.js guide
+  - [Mithril.js](mithril/)
 
 ## Table of Contents
 
