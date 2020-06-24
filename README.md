@@ -5,6 +5,8 @@
 Other Style Guides
 
   - [Mithril.js](mithril/)
+  
+  Lint rules can be found in the [eslintrc](.eslintrc).
 
 ## Table of Contents
 
@@ -116,13 +118,13 @@ Other Style Guides
     // bad
     var count = 1;
     if (true) {
-      count += 1;
+        count += 1;
     }
 
     // good, use the let.
     let count = 1;
     if (true) {
-      count += 1;
+        count += 1;
     }
 ```
 
@@ -162,21 +164,21 @@ Other Style Guides
 ```javascript
 
     function getKey(k) {
-      return `a key named ${k}`;
+        return `a key named ${k}`;
     }
 
     // ok
     const obj = {
-      id: 5,
-      name: 'San Francisco',
+        id: 5,
+        name: 'San Francisco',
     };
     obj[getKey('enabled')] = true;
 
     // better
     const obj = {
-      id: 5,
-      name: 'San Francisco',
-      [getKey('enabled')]: true,
+        id: 5,
+        name: 'San Francisco',
+        [getKey('enabled')]: true,
     };
 ```
 
@@ -186,10 +188,10 @@ Other Style Guides
 ```javascript
     // bad
     const atom = {
-      value: 1,
+        value: 1,
 
       addValue: function (value) {
-        return atom.value + value;
+            return atom.value + value;
       },
     };
 
@@ -998,16 +1000,11 @@ Other Style Guides
 
     // good
     () => {};
-    a => {};
     a => a;
-    a => {'\n'};
-    a.then(foo => {});
-    a.then(foo => { if (true) {} });
     (a, b, c) => a;
     (a = 10) => a;
     ([a, b]) => a;
     ({a, b}) => a;
-    const f = (/** @type {number} */a) => a + a;
     const g = (/* comment */ a) => a + a;
     const h = (a /* comment */) => a + a;
 ```
@@ -1063,24 +1060,24 @@ Other Style Guides
 ```javascript
     // bad
     function Queue(contents = []) {
-      this.queue = [...contents];
+        this.queue = [...contents];
     }
     Queue.prototype.pop = function () {
-      const value = this.queue[0];
-      this.queue.splice(0, 1);
-      return value;
+        const value = this.queue[0];
+        this.queue.splice(0, 1);
+        return value;
     };
 
     // good
     class Queue {
-      constructor(contents = []) {
-        this.queue = [...contents];
-      }
-      pop() {
-        const value = this.queue[0];
-        this.queue.splice(0, 1);
-        return value;
-      }
+        constructor(contents = []) {
+            this.queue = [...contents];
+        }
+        pop() {
+            const value = this.queue[0];
+            this.queue.splice(0, 1);
+            return value;
+        }
     }
 ```
 
@@ -1093,18 +1090,18 @@ Other Style Guides
     // bad
     const inherits = require('inherits');
     function PeekableQueue(contents) {
-      Queue.apply(this, contents);
+        Queue.apply(this, contents);
     }
     inherits(PeekableQueue, Queue);
     PeekableQueue.prototype.peek = function () {
-      return this.queue[0];
+        return this.queue[0];
     };
 
     // good
     class PeekableQueue extends Queue {
-      peek() {
-        return this.queue[0];
-      }
+        peek() {
+            return this.queue[0];
+        }
     }
 ```
 
@@ -1114,12 +1111,13 @@ Other Style Guides
 ```javascript
     // bad
     Jedi.prototype.jump = function () {
-      this.jumping = true;
-      return true;
+        this.jumping = true;
+        return true;
     };
 
+    // bad
     Jedi.prototype.setHeight = function (height) {
-      this.height = height;
+        this.height = height;
     };
 
     const luke = new Jedi();
@@ -1128,21 +1126,20 @@ Other Style Guides
 
     // good
     class Jedi {
-      jump() {
-        this.jumping = true;
-        return this;
-      }
+        jump() {
+            this.jumping = true;
+            return this;
+        }
 
-      setHeight(height) {
-        this.height = height;
-        return this;
-      }
+        setHeight(height) {
+            this.height = height;
+            return this;
+        }
     }
 
     const luke = new Jedi();
 
-    luke.jump()
-      .setHeight(20);
+    luke.jump().setHeight(20);
 ```
 
   <a name="constructors--tostring"></a><a name="9.4"></a>
@@ -1150,17 +1147,17 @@ Other Style Guides
 
 ```javascript
     class Jedi {
-      constructor(options = {}) {
-        this.name = options.name || 'no name';
-      }
+        constructor(options = {}) {
+            this.name = options.name || 'no name';
+        }
 
-      getName() {
-        return this.name;
-      }
+        getName() {
+            return this.name;
+        }
 
-      toString() {
-        return `Jedi - ${this.getName()}`;
-      }
+        toString() {
+            return `Jedi - ${this.getName()}`;
+        }
     }
 ```
 
@@ -1169,28 +1166,33 @@ Other Style Guides
 
 ```javascript
     // bad
-    class Jedi {
-      constructor() {}
+        class Jedi {
+            constructor() {}
+            
+            getName() {
+                return this.name;
+            }
+        }
+        
+        // bad
+        class Rey extends Jedi {
+            constructor(...args) {
+                super(...args);
+            }
+        }
+        
+        // good
+        class Rey extends Jedi {
+            constructor(...args) {
+                super(...args);
+                this.name = 'Rey';
+            }
+        }
 
-      getName() {
-        return this.name;
-      }
-    }
+        // good
+        class Rey extends Jedi {
 
-    // bad
-    class Rey extends Jedi {
-      constructor(...args) {
-        super(...args);
-      }
-    }
-
-    // good
-    class Rey extends Jedi {
-      constructor(...args) {
-        super(...args);
-        this.name = 'Rey';
-      }
-    }
+        }
 ```
 
   <a name="classes--no-duplicate-members"></a>
@@ -1212,7 +1214,7 @@ Other Style Guides
 
     // good
     class Foo {
-      bar() { return 2; }
+        bar() { return 2; }
     }
 ```
 
@@ -1339,23 +1341,12 @@ Other Style Guides
 ```
 
   <a name="modules--multiline-imports-over-newlines"></a>
-  - [10.8](#modules--multiline-imports-over-newlines) Multiline imports should be indented just like multiline array and object literals.
+  - [10.8](#modules--multiline-imports-over-newlines) Single line imports are ok.
  eslint: [`object-curly-newline`](https://eslint.org/docs/rules/object-curly-newline)
 
-    > Why? The curly braces follow the same indentation rules as every other curly brace block in the style guide, as do the trailing commas.
-
 ```javascript
-    // bad
-    import {longNameA, longNameB, longNameC, longNameD, longNameE} from 'path';
-
     // good
-    import {
-      longNameA,
-      longNameB,
-      longNameC,
-      longNameD,
-      longNameE,
-    } from 'path';
+    import {longNameA, longNameB, longNameC, longNameD, longNameE} from 'path';
 ```
 
   <a name="modules--no-webpack-loader-syntax"></a>
@@ -1407,14 +1398,14 @@ Other Style Guides
     // bad
     let sum = 0;
     for (let num of numbers) {
-      sum += num;
+        sum += num;
     }
     sum === 15;
 
     // good
     let sum = 0;
     numbers.forEach((num) => {
-      sum += num;
+        sum += num;
     });
     sum === 15;
 
@@ -1425,13 +1416,13 @@ Other Style Guides
     // bad
     const increasedByOne = [];
     for (let i = 0; i < numbers.length; i++) {
-      increasedByOne.push(numbers[i] + 1);
+        increasedByOne.push(numbers[i] + 1);
     }
 
     // good
     const increasedByOne = [];
     numbers.forEach((num) => {
-      increasedByOne.push(num + 1);
+        increasedByOne.push(num + 1);
     });
 
     // best (keeping it functional)
@@ -1513,8 +1504,8 @@ Other Style Guides
 
 ```javascript
     const luke = {
-      jedi: true,
-      age: 28,
+        jedi: true,
+        age: 28,
     };
 
     // bad
@@ -1529,12 +1520,12 @@ Other Style Guides
 
 ```javascript
     const luke = {
-      jedi: true,
-      age: 28,
+        jedi: true,
+        age: 28,
     };
 
     function getProp(prop) {
-      return luke[prop];
+        return luke[prop];
     }
 
     const isJedi = getProp('jedi');
@@ -1587,6 +1578,8 @@ Other Style Guides
     const items = getItems();
     const goSportsTeam = true;
     const dragonball = 'z';
+
+
 ```
 
   <a name="variables--const-let-group"></a><a name="13.3"></a>
@@ -1623,34 +1616,34 @@ Other Style Guides
 ```javascript
     // bad - unnecessary function call
     function checkName(hasName) {
-      const name = getName();
-
-      if (hasName === 'test') {
-        return false;
-      }
-
-      if (name === 'test') {
-        this.setName('');
-        return false;
-      }
-
-      return name;
+        const name = getName();
+        
+        if (hasName === 'test') {
+            return false;
+        }
+        
+        if (name === 'test') {
+            this.setName('');
+            return false;
+        }
+        
+        return name;
     }
 
     // good
     function checkName(hasName) {
-      if (hasName === 'test') {
-        return false;
-      }
-
-      const name = getName();
-
-      if (name === 'test') {
-        this.setName('');
-        return false;
-      }
-
-      return name;
+        if (hasName === 'test') {
+            return false;
+        }
+        
+        const name = getName();
+        
+        if (name === 'test') {
+             this.setName('');
+             return false;
+        }
+        
+        return name;
     }
 ```
 
@@ -1761,7 +1754,7 @@ Other Style Guides
     // we know this wouldn’t work (assuming there
     // is no notDefined global variable)
     function example() {
-      console.log(notDefined); // => throws a ReferenceError
+        console.log(notDefined); // => throws a ReferenceError
     }
 
     // creating a variable declaration after you
@@ -1769,24 +1762,24 @@ Other Style Guides
     // variable hoisting. Note: the assignment
     // value of `true` is not hoisted.
     function example() {
-      console.log(declaredButNotAssigned); // => undefined
-      var declaredButNotAssigned = true;
+          console.log(declaredButNotAssigned); // => undefined
+          var declaredButNotAssigned = true;
     }
 
     // the interpreter is hoisting the variable
     // declaration to the top of the scope,
     // which means our example could be rewritten as:
     function example() {
-      let declaredButNotAssigned;
-      console.log(declaredButNotAssigned); // => undefined
-      declaredButNotAssigned = true;
+        let declaredButNotAssigned;
+        console.log(declaredButNotAssigned); // => undefined
+        declaredButNotAssigned = true;
     }
 
     // using const and let
     function example() {
-      console.log(declaredButNotAssigned); // => throws a ReferenceError
-      console.log(typeof declaredButNotAssigned); // => throws a ReferenceError
-      const declaredButNotAssigned = true;
+        console.log(declaredButNotAssigned); // => throws a ReferenceError
+        console.log(typeof declaredButNotAssigned); // => throws a ReferenceError
+        const declaredButNotAssigned = true;
     }
 ```
 
@@ -1795,13 +1788,13 @@ Other Style Guides
 
 ```javascript
     function example() {
-      console.log(anonymous); // => undefined
+        console.log(anonymous); // => undefined
 
-      anonymous(); // => TypeError anonymous is not a function
+        anonymous(); // => TypeError anonymous is not a function
 
-      var anonymous = function () {
-        console.log('anonymous function expression');
-      };
+        var anonymous = function () {
+              console.log('anonymous function expression');
+        };
     }
 ```
 
@@ -1810,27 +1803,27 @@ Other Style Guides
 
 ```javascript
     function example() {
-      console.log(named); // => undefined
-
-      named(); // => TypeError named is not a function
-
-      superPower(); // => ReferenceError superPower is not defined
-
-      var named = function superPower() {
-        console.log('Flying');
-      };
+        console.log(named); // => undefined
+        
+        named(); // => TypeError named is not a function
+        
+        superPower(); // => ReferenceError superPower is not defined
+        
+        var named = function superPower() {
+            console.log('Flying');
+        };
     }
 
     // the same is true when the function name
     // is the same as the variable name.
     function example() {
-      console.log(named); // => undefined
+        console.log(named); // => undefined
 
-      named(); // => TypeError named is not a function
+        named(); // => TypeError named is not a function
 
-      var named = function named() {
-        console.log('named');
-      };
+        var named = function named() {
+            console.log('named');
+        };
     }
 ```
 
@@ -1839,11 +1832,11 @@ Other Style Guides
 
 ```javascript
     function example() {
-      superPower(); // => Flying
+        superPower(); // => Flying
 
-      function superPower() {
-        console.log('Flying');
-      }
+        function superPower() {
+            console.log('Flying');
+        }
     }
 ```
 
@@ -1920,15 +1913,15 @@ Other Style Guides
     // bad
     switch (foo) {
       case 1:
-        let x = 1;
-        break;
+            let x = 1;
+            break;
       case 2:
-        const y = 2;
-        break;
+            const y = 2;
+            break;
       case 3:
-        function f() {
-          // ...
-        }
+            function f() {
+            // ...
+            }
         break;
       default:
         class C {}
@@ -1937,12 +1930,12 @@ Other Style Guides
     // good
     switch (foo) {
       case 1: {
-        let x = 1;
-        break;
+            let x = 1;
+            break;
       }
       case 2: {
-        const y = 2;
-        break;
+            const y = 2;
+            break;
       }
       case 3: {
         function f() {
@@ -2067,19 +2060,19 @@ Other Style Guides
 ```javascript
     // bad
     if (test) {
-      thing1();
-      thing2();
+        thing1();
+        thing2();
     }
     else {
-      thing3();
+        thing3();
     }
 
     // good
     if (test) {
-      thing1();
-      thing2();
+        thing1();
+        thing2();
     } else {
-      thing3();
+        thing3();
     }
 ```
 
@@ -2089,31 +2082,31 @@ Other Style Guides
 ```javascript
     // bad
     function foo() {
-      if (x) {
-        return x;
-      } else {
-        return y;
-      }
+        if (x) {
+            return x;
+        } else {
+            return y;
+        }
     }
 
     // bad
     function cats() {
-      if (x) {
-        return x;
-      } else if (y) {
-        return y;
-      }
+        if (x) {
+            return x;
+        } else if (y) {
+            return y;
+        }
     }
 
     // bad
     function dogs() {
-      if (x) {
-        return x;
-      } else {
-        if (y) {
-          return y;
+        if (x) {
+            return x;
+        } else {
+            if (y) {
+                return y;
+            }
         }
-      }
     }
 
     // good
@@ -2127,24 +2120,24 @@ Other Style Guides
 
     // good
     function cats() {
-      if (x) {
-        return x;
-      }
-
-      if (y) {
-        return y;
-      }
+        if (x) {
+            return x;
+        }
+    
+        if (y) {
+            return y;
+        }
     }
-
+    
     // good
     function dogs(x) {
-      if (x) {
-        if (z) {
-          return y;
+        if (x) {
+            if (z) {
+                return y;
+            }
+        } else {
+            return z;
         }
-      } else {
-        return z;
-      }
     }
 ```
 
@@ -2160,13 +2153,13 @@ Other Style Guides
 ```javascript
     // bad
     if ((foo === 123 || bar === 'abc') && doesItLookGoodWhenItBecomesThatLong() && isThisReallyHappening()) {
-      thing1();
+        thing1();
     }
 
     // bad
     if (foo === 123 &&
       bar === 'abc') {
-      thing1();
+        thing1();
     }
 
     // bad
@@ -2183,7 +2176,7 @@ Other Style Guides
       thing1();
     }
 
-    // good
+    // ok
     if (
       foo === 123
       && bar === 'abc'
@@ -2197,12 +2190,12 @@ Other Style Guides
       && doesItLookGoodWhenItBecomesThatLong()
       && isThisReallyHappening()
     ) {
-      thing1();
+        thing1();
     }
 
     // good
     if (foo === 123 && bar === 'abc') {
-      thing1();
+        thing1();
     }
 ```
 
@@ -2215,7 +2208,7 @@ Other Style Guides
 
     // good
     if (!isRunning) {
-      startRunning();
+        startRunning();
     }
 ```
 
@@ -2268,29 +2261,29 @@ Other Style Guides
 
     // bad
     function getType() {
-      console.log('fetching type...');
+        console.log('fetching type...');
       // set the default type to 'no type'
-      const type = this.type || 'no type';
+        const type = this.type || 'no type';
 
-      return type;
+        return type;
     }
 
     // good
     function getType() {
-      console.log('fetching type...');
+        console.log('fetching type...');
 
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
+        // set the default type to 'no type'
+        const type = this.type || 'no type';
 
-      return type;
+        return type;
     }
 
     // also good
     function getType() {
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
+        // set the default type to 'no type'
+        const type = this.type || 'no type';
 
-      return type;
+        return type;
     }
 ```
 
@@ -2315,7 +2308,7 @@ Other Style Guides
 
       // ...
 
-      return element;
+        return element;
     }
 
     // good
@@ -2327,7 +2320,7 @@ Other Style Guides
 
       // ...
 
-      return element;
+        return element;
     }
 ```
 
@@ -2339,12 +2332,12 @@ Other Style Guides
 
 ```javascript
     class Calculator extends Abacus {
-      constructor() {
-        super();
-
-        // FIXME: shouldn’t use a global here
-        total = 0;
-      }
+        constructor() {
+              super();
+        
+              // FIXME: shouldn’t use a global here
+              total = 0;
+        }
     }
 ```
 
@@ -2353,12 +2346,12 @@ Other Style Guides
 
 ```javascript
     class Calculator extends Abacus {
-      constructor() {
-        super();
-
-        // TODO: total should be configurable by an options param
-        this.total = 0;
-      }
+        constructor() {
+            super();
+    
+          // TODO: total should be configurable by an options param
+            this.total = 0;
+        }
     }
 ```
 
@@ -2392,24 +2385,24 @@ Other Style Guides
 ```javascript
     // bad
     function test(){
-      console.log('test');
+        console.log('test');
     }
 
     // good
     function test() {
-      console.log('test');
+        console.log('test');
     }
 
     // bad
     dog.set('attr',{
-      age: '1 year',
-      breed: 'Bernese Mountain Dog',
+        age: '1 year',
+        breed: 'Bernese Mountain Dog',
     });
 
     // good
     dog.set('attr', {
-      age: '1 year',
-      breed: 'Bernese Mountain Dog',
+        age: '1 year',
+        breed: 'Bernese Mountain Dog',
     });
 ```
 
@@ -2419,22 +2412,22 @@ Other Style Guides
 ```javascript
     // bad
     if(isJedi) {
-      fight ();
+        fight ();
     }
 
     // good
     if (isJedi) {
-      fight();
+        fight();
     }
 
     // bad
     function fight () {
-      console.log ('Swooosh!');
+        console.log ('Swooosh!');
     }
 
     // good
     function fight() {
-      console.log('Swooosh!');
+        console.log('Swooosh!');
     }
 ```
 
@@ -2524,13 +2517,13 @@ Other Style Guides
 ```javascript
     // bad
     if (foo) {
-      return bar;
+        return bar;
     }
     return baz;
 
     // good
     if (foo) {
-      return bar;
+        return bar;
     }
 
     return baz;
@@ -2600,20 +2593,20 @@ Other Style Guides
     class Foo {
 
       constructor(bar) {
-        this.bar = bar;
+            this.bar = bar;
       }
     }
 
     // good
     function bar() {
-      console.log(foo);
+        console.log(foo);
     }
 
     // good
     if (baz) {
-      console.log(qux);
+        console.log(qux);
     } else {
-      console.log(foo);
+        console.log(foo);
     }
 ```
 
@@ -2625,24 +2618,24 @@ Other Style Guides
     // bad
     class Person {
       constructor(fullName, email, birthday) {
-        this.fullName = fullName;
+            this.fullName = fullName;
 
 
-        this.email = email;
+            this.email = email;
 
 
-        this.setAge(birthday);
+            this.setAge(birthday);
       }
 
 
       setAge(birthday) {
-        const today = new Date();
-
-
-        const age = this.getAge(today, birthday);
-
-
-        this.age = age;
+            const today = new Date();
+        
+        
+            const age = this.getAge(today, birthday);
+        
+        
+            this.age = age;
       }
 
 
@@ -2653,21 +2646,21 @@ Other Style Guides
 
     // good
     class Person {
-      constructor(fullName, email, birthday) {
-        this.fullName = fullName;
-        this.email = email;
-        this.setAge(birthday);
-      }
-
-      setAge(birthday) {
-        const today = new Date();
-        const age = getAge(today, birthday);
-        this.age = age;
-      }
-
-      getAge(today, birthday) {
-        // ..
-      }
+        constructor(fullName, email, birthday) {
+            this.fullName = fullName;
+            this.email = email;
+            this.setAge(birthday);
+        }
+        
+        setAge(birthday) {
+            const today = new Date();
+            const age = getAge(today, birthday);
+            this.age = age;
+        }
+        
+        getAge(today, birthday) {
+            // ..
+        }
     }
 ```
 
@@ -2677,22 +2670,22 @@ Other Style Guides
 ```javascript
     // bad
     function bar( foo ) {
-      return foo;
+        return foo;
     }
 
     // good
     function bar(foo) {
-      return foo;
+        return foo;
     }
 
     // bad
     if ( foo ) {
-      console.log(foo);
+        console.log(foo);
     }
 
     // good
     if (foo) {
-      console.log(foo);
+        console.log(foo);
     }
 ```
 
@@ -2885,7 +2878,7 @@ Other Style Guides
       firstName: 'Ada',
       lastName: 'Lovelace',
       birthYear: 1815,
-      superPower: 'computers',
+      superPower: 'computers'
     };
 ```
 
@@ -3144,22 +3137,22 @@ Other Style Guides
 ```javascript
     // bad
     function user(options) {
-      this.name = options.name;
+        this.name = options.name;
     }
 
     const bad = new user({
-      name: 'nope',
+        name: 'nope',
     });
 
     // good
     class User {
-      constructor(options) {
-        this.name = options.name;
-      }
+        constructor(options) {
+            this.name = options.name;
+        }
     }
 
     const good = new User({
-      name: 'yup',
+        name: 'yup',
     });
 ```
 
@@ -3183,25 +3176,25 @@ Other Style Guides
 ```javascript
     // bad
     function foo() {
-      const self = this;
-      return function () {
-        console.log(self);
-      };
+        const self = this;
+        return function () {
+            console.log(self);
+        };
     }
 
     // bad
     function foo() {
-      const that = this;
-      return function () {
-        console.log(that);
-      };
+        const that = this;
+        return function () {
+            console.log(that);
+        };
     }
 
     // good
     function foo() {
-      return () => {
-        console.log(this);
-      };
+        return () => {
+            console.log(this);
+        };
     }
 ```
 
@@ -3256,12 +3249,12 @@ Other Style Guides
   - [23.8](#naming--PascalCase-singleton) Use PascalCase when you export a constructor / class / singleton / function library / bare object.
 
 ```javascript
-    const AirbnbStyleGuide = {
-      es6: {
-      },
+    const UnearthStyleGuide = {
+        es6: {
+        },
     };
 
-    export default AirbnbStyleGuide;
+    export default UnearthStyleGuide;
 ```
 
   <a name="naming--Acronyms-and-Initialisms"></a>
@@ -3351,24 +3344,24 @@ Other Style Guides
 ```javascript
     // bad
     class Dragon {
-      get age() {
-        // ...
-      }
-
-      set age(value) {
-        // ...
-      }
+        get age() {
+            // ...
+        }
+        
+        set age(value) {
+            // ...
+        }
     }
 
     // good
     class Dragon {
-      getAge() {
-        // ...
-      }
-
-      setAge(value) {
-        // ...
-      }
+        getAge() {
+            // ...
+        }
+        
+        setAge(value) {
+            // ...
+        }
     }
 ```
 
@@ -3378,12 +3371,12 @@ Other Style Guides
 ```javascript
     // bad
     if (!dragon.age()) {
-      return false;
+        return false;
     }
-
+    
     // good
     if (!dragon.hasAge()) {
-      return false;
+        return false;
     }
 ```
 
@@ -3392,18 +3385,18 @@ Other Style Guides
 
 ```javascript
     class Jedi {
-      constructor(options = {}) {
-        const lightsaber = options.lightsaber || 'blue';
-        this.set('lightsaber', lightsaber);
-      }
-
-      set(key, val) {
-        this[key] = val;
-      }
-
-      get(key) {
-        return this[key];
-      }
+        constructor(options = {}) {
+            const lightsaber = options.lightsaber || 'blue';
+            this.set('lightsaber', lightsaber);
+        }
+    
+        set(key, val) {
+            this[key] = val;
+        }
+    
+        get(key) {
+            return this[key];
+        }
     }
 ```
 
