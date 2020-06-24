@@ -1114,16 +1114,9 @@
         }
       }
     ],
-    // require trailing commas in multiline object literals
+    // never have comma dangle in multiline.
     "comma-dangle": [
-      "error",
-      {
-        "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "imports": "always-multiline",
-        "exports": "always-multiline",
-        "functions": "always-multiline"
-      }
+      "error", "never"
     ],
     // enforce spacing before and after comma
     "comma-spacing": [
@@ -1527,9 +1520,7 @@
     "no-nested-ternary": "error",
     // disallow use of the Object constructor
     "no-new-object": "error",
-    // disallow use of unary operators, ++ and --
-    // https://eslint.org/docs/rules/no-plusplus
-    "no-plusplus": "error",
+
     // disallow certain syntax forms
     // https://eslint.org/docs/rules/no-restricted-syntax
     "no-restricted-syntax": [
