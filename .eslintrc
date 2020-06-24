@@ -573,7 +573,7 @@
     // https://eslint.org/docs/rules/arrow-parens
     "arrow-parens": [
       "error",
-      "always"
+      "as-needed"
     ],
     // require space before/after arrow function"s arrow
     // https://eslint.org/docs/rules/arrow-spacing
@@ -1166,9 +1166,8 @@
       "always"
     ],
     // https://eslint.org/docs/rules/function-call-argument-newline
-    // TODO: enable, semver-minor, once eslint v6.2 is required (which is a major)
     "function-call-argument-newline": [
-      "off",
+      "error",
       "consistent"
     ],
     // enforce spacing between functions and their invocations

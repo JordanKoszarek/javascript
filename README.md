@@ -865,6 +865,52 @@ Other Style Guides
     // good
     new Date(...[2016, 8, 5]);
     ```
+     <a name="functions--function-call-spacing"></a><a name="7.15"></a>
+      - [7.15](#functions--function-call-spacing) Function argument spacing should be consistent within the function.
+
+    ```javascript
+    /*eslint function-call-argument-newline: ["error", "consistent"]*/
+
+    foo("one", "two", "three");
+    // or
+    foo(
+        "one",
+        "two",
+        "three"
+    );
+
+    bar("one", "two", {
+        one: 1,
+        two: 2
+    });
+    // or
+    bar(
+        "one",
+        "two",
+        { one: 1, two: 2 }
+    );
+    // or
+    bar(
+        "one",
+        "two",
+        {
+            one: 1,
+            two: 2
+        }
+    );
+
+    baz("one", "two", (x) => {
+        console.log(x);
+    });
+    // or
+    baz(
+        "one",
+        "two",
+        (x) => {
+            console.log(x);
+        }
+    );
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -935,6 +981,37 @@ Other Style Guides
       bool = true;
     });
     ```
+      <a name="arrows--one-arg-parens"></a><a name="8.4"></a>
+      - [8.4](#arrows--one-arg-parens) Include parentheses as-needed around arguments. eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html)
+
+    ```javascript
+    // Incorrect
+    (a) => {};
+    (a) => a;
+    (a) => {'\n'};
+    a.then((foo) => {});
+    a.then((foo) => a);
+    a((foo) => { if (true) {} });
+    const f = /** @type {number} */(a) => a + a;
+    const g = /* comment */ (a) => a + a;
+    const h = (a) /* comment */ => a + a;
+
+    // Correct
+    () => {};
+    a => {};
+    a => a;
+    a => {'\n'};
+    a.then(foo => {});
+    a.then(foo => { if (true) {} });
+    (a, b, c) => a;
+    (a = 10) => a;
+    ([a, b]) => a;
+    ({a, b}) => a;
+    const f = (/** @type {number} */a) => a + a;
+    const g = (/* comment */ a) => a + a;
+    const h = (a /* comment */) => a + a;
+    ```
+
   <a name="arrows--confusing"></a><a name="8.5"></a>
   - [8.5](#arrows--confusing) Avoid confusing arrow function syntax (`=>`) with comparison operators (`<=`, `>=`). eslint: [`no-confusing-arrow`](https://eslint.org/docs/rules/no-confusing-arrow)
 
