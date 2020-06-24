@@ -2216,8 +2216,7 @@ Other Style Guides
 
 ## Comments
 
-   Comments are not required.
-
+  Comments are optional. The code should be self-documenting. If the code is confusing and needs comments to be understood, then Try refactoring the code before adding comments.
   <a name="comments--multiline"></a><a name="17.1"></a>
   - [18.1](#comments--multiline) Use `/** ... */` for multiline comments.
 
