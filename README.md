@@ -2165,7 +2165,7 @@ Other Style Guides
     // bad
     if (foo === 123
       && bar === 'abc') {
-      thing1();
+        thing1();
     }
 
     // bad
@@ -2173,7 +2173,7 @@ Other Style Guides
       foo === 123 &&
       bar === 'abc'
     ) {
-      thing1();
+        thing1();
     }
 
     // ok
@@ -2181,7 +2181,7 @@ Other Style Guides
       foo === 123
       && bar === 'abc'
     ) {
-      thing1();
+        thing1();
     }
 
     // good
